@@ -7,15 +7,27 @@
         <header>
             <h1>Todo App</h1>
         </header>
-
-        <ul>
-            {{#each tasks}}
-                {{> task}}
-            {{/each}}
-        </ul>
+        {{>TodosPanel}}
     </div>
 </body>
 
-<template name="task">
-    <li>{{text}}</li>
+<template name="TodosPanel">
+    <div class="todos-panel">
+        <ul class="todos-list">
+            {{#each items}}
+                <li class="todo-item">
+                    {{> TodoItem}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</template>
+
+<template name="TodoItem">
+    <div class="done">
+        <input type="checkbox" name="is_done" {{isDoneChecked}}>
+    </div>
+    <div class="subject">
+        {{subject}}
+    </div>
 </template>

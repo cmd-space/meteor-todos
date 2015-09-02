@@ -7,19 +7,21 @@
         <header>
             <h1>Todo App</h1>
         </header>
-        {{>TodosPanel}}
+        {{> TodosPanel}}
     </div>
 </body>
 
 <template name="TodosPanel">
     <div class="todos-panel">
+        {{> CreateTodoItem}}
         <ul class="todos-list">
             {{#each items}}
-                <li class="todo-item">
+                <li class="todo-item {{isDoneClass}}">
                     {{> TodoItem}}
                 </li>
             {{/each}}
         </ul>
+        {{> TodosCount}}
     </div>
 </template>
 
@@ -29,5 +31,17 @@
     </div>
     <div class="subject">
         {{subject}}
+    </div>
+</template>
+
+<template name="CreateTodoItem">
+    <form class="create-todo">
+        <input type="text" placeholder="Create new todo...">
+    </form>
+</template>
+
+<template name="TodosCount">
+    <div class="todos-count">
+        {{completedCount}} / {{totalCount}} todos completed
     </div>
 </template>

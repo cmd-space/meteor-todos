@@ -2,6 +2,8 @@ Todos = new Meteor.Collection('todos');
 
 if(Meteor.isClient) {
     // This code only runs on the client
+    todosSub =  Meteor.subscribe('todos');
+
     Template.TodosPanel.helpers({
         items: function() {
             return Todos.find({}, {
@@ -35,7 +37,8 @@ if(Meteor.isClient) {
             Todos.insert({
                 subject: subject,
                 created_at: new Date,
-                is_done: false
+                is_done: false,
+                user_id: Meteor.userId()
             });
             var form = tmpl.find('form');
             form.reset();
@@ -53,5 +56,7 @@ if(Meteor.isClient) {
 }
 
 if(Meteor.isServer) {
-
+    Meteor.publish('todos', function() {
+        return Todos.find({user_id: this.userId});
+    });
 }
